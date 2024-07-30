@@ -1,9 +1,10 @@
 import { Suspense, useEffect } from "react";
-import "./App.css";
+// import "./App.css";
 import { useDispatch } from "react-redux";
 import { fetchHeroesThunk } from "./redux/operations";
-import HeroesList from "./components/HeroesList/HeroesList";
+
 import { Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout/Layout";
 
 function App() {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function App() {
     <>
       <Suspense fallback={null}>
         <Routes>
-          <Route path="/" element={<HeroesList />} />
+          <Route path="/" element={<Layout />} />
         </Routes>
       </Suspense>
     </>
