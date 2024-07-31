@@ -6,10 +6,55 @@ axios.defaults.baseURL = "https://sw-api.starnavi.io/";
 export const fetchHeroesThunk = createAsyncThunk(
   "heroes/fetchAll",
   async (_, thunkAPI) => {
-    console.log("click");
     try {
       const { data } = await axios.get("people");
       return data.results;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchFilmsThunk = createAsyncThunk(
+  "films/fetchAll",
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await axios.get("films");
+      return data.results;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+// export const fetchStarshipsThunk = createAsyncThunk(
+//   "starships/fetch",
+//   async (id, thunkAPI) => {
+//     try {
+//       const { data } = await axios.get(`starships/${id}`);
+//       return data.results;
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error.message);
+//     }
+//   }
+// );
+export const fetchStarshipData = (starshipId) => {
+  return axios
+    .get(`starships/${starshipId}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("Error fetching starship data:", error);
+      throw error;
+    });
+};
+
+export const fetchStarships = createAsyncThunk(
+  "starships/fetchStarships",
+  async (starshipIds, thunkAPI) => {
+    try {
+      const starshipPromises = starshipIds.map((id) => fetchStarshipData(id));
+      const starships = await Promise.all(starshipPromises);
+      return starships;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

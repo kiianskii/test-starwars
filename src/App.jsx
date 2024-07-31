@@ -1,7 +1,7 @@
 import { Suspense, useEffect } from "react";
 // import "./App.css";
 import { useDispatch } from "react-redux";
-import { fetchHeroesThunk } from "./redux/operations";
+import { fetchFilmsThunk, fetchHeroesThunk } from "./redux/operations";
 
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
@@ -12,6 +12,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchHeroesThunk());
+    dispatch(fetchFilmsThunk());
   }, [dispatch]);
 
   return (

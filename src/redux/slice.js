@@ -1,8 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchHeroesThunk } from "./operations";
+import {
+  fetchFilmsThunk,
+  fetchHeroesThunk,
+  fetchStarships,
+} from "./operations";
 
 const initialState = {
   heroes: [],
+  films: [],
+  starships: [],
   isLoading: false,
   isError: false,
 };
@@ -12,6 +18,8 @@ const sliceHeroes = createSlice({
   initialState,
   selectors: {
     selectHeroes: (state) => state.heroes,
+    selectFilms: (state) => state.films,
+    selectStarships: (state) => state.starships,
     selectIsError: (state) => state.isError,
     selectIsLoading: (state) => state.isLoading,
   },
@@ -27,11 +35,36 @@ const sliceHeroes = createSlice({
       })
       .addCase(fetchHeroesThunk.rejected, (state) => {
         state.isLoading = false;
+      })
+      .addCase(fetchFilmsThunk.fulfilled, (state, { payload }) => {
+        state.films = payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchFilmsThunk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchFilmsThunk.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(fetchStarships.fulfilled, (state, { payload }) => {
+        state.starships = payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchStarships.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchStarships.rejected, (state) => {
+        state.isLoading = false;
       });
   },
 });
 
 export const heroesReducer = sliceHeroes.reducer;
 
-export const { selectHeroes, selectIsLoading, selectIsError } =
-  sliceHeroes.selectors;
+export const {
+  selectHeroes,
+  selectFilms,
+  selectStarships,
+  selectIsLoading,
+  selectIsError,
+} = sliceHeroes.selectors;
