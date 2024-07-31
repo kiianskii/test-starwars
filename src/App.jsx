@@ -5,6 +5,7 @@ import { fetchHeroesThunk } from "./redux/operations";
 
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
+import ReactFlowComponent from "./components/ReactFlow/ReactFlowComponent";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,7 +18,9 @@ function App() {
     <>
       <Suspense fallback={null}>
         <Routes>
-          <Route path="/" element={<Layout />} />
+          <Route path="/" element={<Layout />}>
+            <Route path="/:id" element={<ReactFlowComponent />} />
+          </Route>
         </Routes>
       </Suspense>
     </>

@@ -1,55 +1,37 @@
-// import { createSlice } from "@reduxjs/toolkit";
-// import { fetchHeroesThunk } from "./operations";
-
-// const initialState = {
-//   heroes: [],
-//   isLoading: false,
-//   isError: false,
-// };
-
-// const sliceHeroes = createSlice({
-//   name: "heroes",
-//   initialState,
-//   selectors: {
-//     selectHeroes: (state) => state.heroes,
-//     selectIsError: (state) => state.isError,
-//     selectIsLoading: (state) => state.isLoading,
-//   },
-
-//   extraReducers: (builder) => {
-//     builder.addCase(fetchHeroesThunk.fulfilled, (state, { payload }) => {
-//       state.heroes = payload;
-//     });
-//   },
-// });
-
-// export const heroesReducer = sliceHeroes.reducer;
-
-// export const { selectHeroes, selectIsLoading, selectIsError } =
-//   sliceHeroes.selectors;
-
-// slice.js
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchHeroesThunk } from "./operations"; // Переконайтесь, що шлях правильний
+import { fetchHeroesThunk } from "./operations";
+
+const initialState = {
+  heroes: [],
+  isLoading: false,
+  isError: false,
+};
 
 const sliceHeroes = createSlice({
   name: "heroes",
-  initialState: [],
+  initialState,
   selectors: {
-    selectHeroes: (state) => state,
+    selectHeroes: (state) => state.heroes,
+    selectIsError: (state) => state.isError,
+    selectIsLoading: (state) => state.isLoading,
   },
-  reducers: {},
+
   extraReducers: (builder) => {
     builder
-
       .addCase(fetchHeroesThunk.fulfilled, (state, { payload }) => {
-        return (state = payload);
+        state.heroes = payload;
+        state.isLoading = false;
       })
-      .addCase(fetchHeroesThunk.rejected, (state, action) => {
-        console.error(action.payload);
+      .addCase(fetchHeroesThunk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchHeroesThunk.rejected, (state) => {
+        state.isLoading = false;
       });
   },
 });
 
 export const heroesReducer = sliceHeroes.reducer;
-export const { selectHeroes } = sliceHeroes.selectors;
+
+export const { selectHeroes, selectIsLoading, selectIsError } =
+  sliceHeroes.selectors;
