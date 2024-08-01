@@ -38,7 +38,7 @@ export const fetchFilmsThunk = createAsyncThunk(
 //     }
 //   }
 // );
-export const fetchStarshipData = (starshipId) => {
+export const fetchStarshipData = async (starshipId) => {
   return axios
     .get(`starships/${starshipId}`)
     .then((response) => response.data)

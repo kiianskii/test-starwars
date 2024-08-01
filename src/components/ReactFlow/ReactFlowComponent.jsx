@@ -6,7 +6,7 @@ import ReactFlow, {
   useEdgesState,
 } from "react-flow-renderer";
 
-import { edges as initialEdges, nodesMade } from "./InitialElements";
+import { nodesMade } from "./InitialElements";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectFilms,
@@ -27,8 +27,9 @@ const ReactFlowComponent = () => {
   const { id } = useParams();
 
   const [initialNodes, setInitialNodes] = useState([]);
+  const [initialEdges, setInitialEdges] = useState([]);
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
   useEffect(() => {
     if (characters.length > 0 && id) {
@@ -51,19 +52,36 @@ const ReactFlowComponent = () => {
         film.characters.includes(hero.id)
       );
       if (hero && filteredFilms) {
-        // Передаємо hero, filteredFilms і starships у nodesMade
-        const nodes = nodesMade({ hero, filteredFilms, starships });
-        setInitialNodes(nodes);
+        const starshipIds = hero.starships;
+        if (!starshipIds.length > 0) {
+          const { nodes, edges } = nodesMade({
+            hero,
+            filteredFilms,
+            starships: [],
+          });
+          setInitialNodes(nodes);
+          setInitialEdges(edges);
+        } else {
+          const { nodes, edges } = nodesMade({
+            hero,
+            filteredFilms,
+            starships,
+          });
+          setInitialNodes(nodes);
+          setInitialEdges(edges);
+        }
       }
     }
   }, [characters, id, films, starships]);
 
   useEffect(() => {
     setNodes(initialNodes);
-  }, [initialNodes, setNodes]);
+    setEdges(initialEdges);
+  }, [initialEdges, initialNodes, setEdges, setNodes]);
 
   const onConnect = (params) => setEdges((eds) => addEdge(params, eds));
-
+  console.log(nodes);
+  console.log(edges);
   return isLoading ? (
     <h1>Loading</h1>
   ) : (
