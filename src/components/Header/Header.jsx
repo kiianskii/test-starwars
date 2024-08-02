@@ -5,11 +5,7 @@ function Header() {
   return (
     <section className={s.header}>
       <div className={s.container}>
-        <img
-          src="../../../public/star_wars_logo.png"
-          alt="logo"
-          className={s.logo}
-        />
+        <img src="/star_wars_logo.png" alt="logo" className={s.logo} />
         <Link to="/" className={s.title}>
           Starwars Characters
         </Link>
