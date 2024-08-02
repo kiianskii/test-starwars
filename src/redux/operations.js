@@ -15,6 +15,18 @@ export const fetchHeroesThunk = createAsyncThunk(
   }
 );
 
+export const fetchMoreHeroesThunk = createAsyncThunk(
+  "heroes/fetchMore",
+  async (page, thunkAPI) => {
+    try {
+      const { data } = await axios.get(`people/?page=${page + 1}`);
+      return data.results;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 export const fetchFilmsThunk = createAsyncThunk(
   "films/fetchAll",
   async (_, thunkAPI) => {
@@ -27,17 +39,6 @@ export const fetchFilmsThunk = createAsyncThunk(
   }
 );
 
-// export const fetchStarshipsThunk = createAsyncThunk(
-//   "starships/fetch",
-//   async (id, thunkAPI) => {
-//     try {
-//       const { data } = await axios.get(`starships/${id}`);
-//       return data.results;
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error.message);
-//     }
-//   }
-// );
 export const fetchStarshipData = async (starshipId) => {
   return axios
     .get(`starships/${starshipId}`)

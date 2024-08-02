@@ -3,7 +3,6 @@ export const nodesMade = ({ hero, filteredFilms, starships }) => {
 
   const filmsNodes = filteredFilms.map((film, index) => ({
     id: film.id.toString(),
-
     data: {
       label: (
         <>
@@ -11,18 +10,17 @@ export const nodesMade = ({ hero, filteredFilms, starships }) => {
         </>
       ),
     },
-    position: { x: 230, y: 50 * index },
+    position: { x: 190 * index, y: 130 },
     style: {
       background: "#D6D5E6",
       color: "#333",
       border: "1px solid #222138",
-      width: 160,
+      width: 170,
     },
   }));
 
   const starshipsNodes = starships.map((ship, index) => ({
     id: ship.id.toString(),
-
     data: {
       label: (
         <>
@@ -30,12 +28,12 @@ export const nodesMade = ({ hero, filteredFilms, starships }) => {
         </>
       ),
     },
-    position: { x: 430, y: 50 * index },
+    position: { x: 190 * index, y: 330 },
     style: {
       background: "#D6D5E6",
       color: "#333",
       border: "1px solid #222138",
-      width: 160,
+      width: 170,
     },
   }));
 
@@ -50,7 +48,7 @@ export const nodesMade = ({ hero, filteredFilms, starships }) => {
           </>
         ),
       },
-      position: { x: 30, y: 0 },
+      position: { x: 200, y: 1 },
     },
     ...filmsNodes,
     ...starshipsNodes,
@@ -73,20 +71,6 @@ export const nodesMade = ({ hero, filteredFilms, starships }) => {
   });
 
   const edges = [...filmsEdges, ...starshipsEdges];
-
-  // Перевірка наявності всіх target у nodes
-  const nodeIds = new Set(nodes.map((node) => node.id));
-  edges.forEach((edge) => {
-    if (!nodeIds.has(edge.source)) {
-      console.error(`Edge source node ID not found: ${edge.source}`);
-    }
-    if (!nodeIds.has(edge.target)) {
-      console.error(`Edge target node ID not found: ${edge.target}`);
-    }
-  });
-
-  console.log("Nodes:", nodes);
-  console.log("Edges:", edges);
 
   return { nodes, edges };
 };

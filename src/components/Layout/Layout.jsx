@@ -1,16 +1,23 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import HeroesList from "../HeroesList/HeroesList";
 
 import s from "./Layout.module.css";
+import Header from "../Header/Header";
 
 function Layout() {
+  const { id } = useParams();
   return (
-    <div className={s.layout}>
-      <HeroesList />
-      <div className={s.wrap}>
-        <Outlet />
+    <>
+      <Header />
+      <div className={s.layout}>
+        <HeroesList />
+        {id && (
+          <div className={s.wrap}>
+            <Outlet />
+          </div>
+        )}
       </div>
-    </div>
+    </>
   );
 }
 

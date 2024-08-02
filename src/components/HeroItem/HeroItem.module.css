@@ -3,5 +3,28 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
+
+  /* border: 1px solid #222138; */
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.hero {
+  text-decoration: none;
+  color: inherit;
+  padding: 3px 10px;
+  border-radius: 10px;
+  background: #d6d5e6d4;
+  /* border: 1px solid #222138; */
+  box-shadow: rgba(0, 0, 0, 0.093) 0px 3px 8px;
+
+  transition: box-shadow ease-in-out 0.2s;
+}
+
+.hero:hover,
+.hero:focus {
+  box-shadow: rgba(0, 0, 0, 0.28) 0px 3px 8px;
 }

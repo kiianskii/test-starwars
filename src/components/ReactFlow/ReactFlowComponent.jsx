@@ -80,8 +80,6 @@ const ReactFlowComponent = () => {
   }, [initialEdges, initialNodes, setEdges, setNodes]);
 
   const onConnect = (params) => setEdges((eds) => addEdge(params, eds));
-  console.log(nodes);
-  console.log(edges);
   return isLoading ? (
     <h1>Loading</h1>
   ) : (

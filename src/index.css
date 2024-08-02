@@ -35,12 +35,24 @@ h1 {
   line-height: 1.1;
 } */
 
+:root {
+  font-family: "Poppins", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  width: 1440px;
+  /* color-scheme: light dark; */
+  color: #242424;
+  background-color: rgba(236, 236, 236, 0.87);
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+body,
+html {
   margin: 0;
   padding: 0;
 }
@@ -78,5 +90,5 @@ button:focus-visible {
 } */
 
 img {
-  object-fit: cover;
+  object-fit: contain;
 }
