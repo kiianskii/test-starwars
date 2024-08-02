@@ -12,7 +12,7 @@ export const nodesMade = ({ hero, filteredFilms, starships }) => {
     },
     position: { x: 190 * index, y: 130 },
     style: {
-      background: "#D6D5E6",
+      background: "#e8e7f5",
       color: "#333",
       border: "1px solid #222138",
       width: 170,
