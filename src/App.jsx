@@ -6,6 +6,7 @@ import { fetchFilmsThunk, fetchHeroesThunk } from "./redux/operations";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import ReactFlowComponent from "./components/ReactFlow/ReactFlowComponent";
+import Loader from "./components/Loader/Loader";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ function App() {
 
   return (
     <>
-      <Suspense fallback={null}>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/:id" element={<ReactFlowComponent />} />

@@ -11,6 +11,19 @@
   height: 78vh;
 }
 
+.list_col {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+  gap: 20px;
+  list-style: none;
+  padding: 20px;
+  overflow-y: auto;
+  height: 78vh;
+}
+
 .list_wrapper {
   display: flex;
   flex-direction: column;

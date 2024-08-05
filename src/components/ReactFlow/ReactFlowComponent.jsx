@@ -14,12 +14,14 @@ import {
   selectIsLoading,
   selectStarships,
 } from "../../redux/slice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchStarships } from "../../redux/operations";
+import Loader from "../Loader/Loader";
 
 const ReactFlowComponent = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const starships = useSelector(selectStarships);
   const characters = useSelector(selectHeroes);
   const isLoading = useSelector(selectIsLoading);
@@ -34,6 +36,10 @@ const ReactFlowComponent = () => {
   useEffect(() => {
     if (characters.length > 0 && id) {
       const hero = characters.find((hero) => hero.id == id);
+      if (!hero) {
+        navigate("/");
+        return;
+      }
       const filteredFilms = films.filter((film) =>
         film.characters.includes(hero.id)
       );
@@ -81,7 +87,7 @@ const ReactFlowComponent = () => {
 
   const onConnect = (params) => setEdges((eds) => addEdge(params, eds));
   return isLoading ? (
-    <h1>Loading</h1>
+    <Loader />
   ) : (
     <ReactFlow
       nodes={nodes}
