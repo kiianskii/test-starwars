@@ -37,23 +37,25 @@ const ReactFlowComponent = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
   //useEffect that controlles fetching Starships
-  useEffect(() => {
-    if (characters.length > 0 && Number(id)) {
-      const hero = characters.find((hero) => hero.id === Number(id));
-      if (!hero) {
-        navigate("/");
-        return;
-      }
-      const filteredFilms = films.filter((film) =>
-        film.characters.includes(hero.id)
-      );
-      if (hero && filteredFilms) {
-        const starshipIds = hero.starships;
 
-        dispatch(fetchStarships(starshipIds));
+  useEffect(() => {
+    if (characters.length > 0 && id) {
+      const hero = characters.find((hero) => hero.id === Number(id));
+      if (hero) {
+        const filteredFilms = films.filter((film) =>
+          film.characters.includes(hero.id)
+        );
+        if (filteredFilms.length > 0) {
+          const starshipIds = hero.starships;
+          if (starshipIds.length > 0) {
+            dispatch(fetchStarships(starshipIds));
+          }
+        }
+      } else {
+        navigate("/");
       }
     }
-  }, [characters, id, films, dispatch]);
+  }, [characters, id, films, dispatch, navigate]);
 
   //useEffect that controlles making nodes and edges for React Flow
 
