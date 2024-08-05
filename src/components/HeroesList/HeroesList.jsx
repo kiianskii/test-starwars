@@ -28,7 +28,7 @@ function HeroesList() {
         if (containerRef.current) {
           requestAnimationFrame(() => {
             const height =
-              containerRef.current.firstElementChild?.getBoundingClientRect()
+              containerRef.current.firstElementChild?.firstElementChild?.getBoundingClientRect()
                 .height || 0;
             containerRef.current.scrollBy({
               behavior: "smooth",
@@ -50,23 +50,25 @@ function HeroesList() {
   };
 
   return (
-    <div className={s.list_wrapper}>
-      {loading && <Loader />}
-      <ul className={!id ? s.list : s.list_col} ref={containerRef}>
-        {heroes.map((hero) => (
-          <HeroItem key={hero.id} hero={hero} />
-        ))}
-      </ul>
-      {page < 9 && (
-        <button
-          className={s.more_btn}
-          type="button"
-          onClick={handleLoadMore}
-          disabled={loading}
-        >
-          Load more
-        </button>
-      )}
+    <div>
+      <div className={!id ? s.wrapper : s.wrapper_col} ref={containerRef}>
+        {loading && <Loader />}
+        <ul className={!id ? s.list : s.list_col}>
+          {heroes.map((hero) => (
+            <HeroItem key={hero.id} hero={hero} />
+          ))}
+        </ul>
+        {page < 9 && (
+          <button
+            className={s.more_btn}
+            type="button"
+            onClick={handleLoadMore}
+            disabled={loading}
+          >
+            Load more
+          </button>
+        )}
+      </div>
     </div>
   );
 }
