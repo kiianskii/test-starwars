@@ -34,8 +34,8 @@ const ReactFlowComponent = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
   useEffect(() => {
-    if (characters.length > 0 && id) {
-      const hero = characters.find((hero) => hero.id == id);
+    if (characters.length > 0 && Number(id)) {
+      const hero = characters.find((hero) => hero.id === Number(id));
       if (!hero) {
         navigate("/");
         return;
@@ -52,8 +52,8 @@ const ReactFlowComponent = () => {
   }, [characters, id, films, dispatch]);
 
   useEffect(() => {
-    if (characters.length > 0 && id && starships.length > 0) {
-      const hero = characters.find((hero) => hero.id == id);
+    if (characters.length > 0 && Number(id) && starships.length > 0) {
+      const hero = characters.find((hero) => hero.id === Number(id));
       const filteredFilms = films.filter((film) =>
         film.characters.includes(hero.id)
       );
