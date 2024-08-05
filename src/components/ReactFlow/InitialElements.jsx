@@ -108,23 +108,26 @@ export const nodesMade = ({ hero, filteredFilms, starships }) => {
     },
   };
 
-  const starshipsHeaderNode = {
-    id: "starships-header",
-    data: {
-      label: (
-        <>
-          <h4>Spaceships:</h4>
-        </>
-      ),
-    },
-    position: { x: 0, y: 330 }, // Розташування заголовка для зорельотів
-    style: {
-      background: "#fff",
-      color: "#333",
-      border: "none",
-      width: 170,
-    },
-  };
+  const starshipsHeaderNode =
+    starships.length > 0
+      ? {
+          id: "starships-header",
+          data: {
+            label: (
+              <>
+                <h4>Spaceships:</h4>
+              </>
+            ),
+          },
+          position: { x: 0, y: 280 }, // Розташування заголовка для зорельотів
+          style: {
+            background: "#fff",
+            color: "#333",
+            border: "none",
+            width: 170,
+          },
+        }
+      : null;
 
   const filmsNodes = filteredFilms.map((film, index) => ({
     id: film.id.toString(),
@@ -153,7 +156,7 @@ export const nodesMade = ({ hero, filteredFilms, starships }) => {
         </>
       ),
     },
-    position: { x: 190 + 190 * index, y: 330 }, // Відступ від заголовка
+    position: { x: 190 + 190 * index, y: 280 }, // Відступ від заголовка
     style: {
       background: "#D6D5E6",
       color: "#333",
@@ -179,7 +182,7 @@ export const nodesMade = ({ hero, filteredFilms, starships }) => {
     ...filmsNodes,
     starshipsHeaderNode,
     ...starshipsNodes,
-  ];
+  ].filter(Boolean);
 
   const filmsEdges = filteredFilms.map((film) => ({
     id: `e1000-${film.id}`,
