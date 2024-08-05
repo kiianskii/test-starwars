@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import s from "./HeroItem.module.css";
+import React from "react";
 
 function HeroItem({ hero }) {
   return (
