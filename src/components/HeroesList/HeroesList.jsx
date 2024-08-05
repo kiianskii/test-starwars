@@ -1,23 +1,28 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectHeroes, selectIsLoading, selectPage } from "../../redux/slice";
-import HeroItem from "../HeroItem/HeroItem";
-import s from "./HeroesList.module.css";
-import { fetchMoreHeroesThunk } from "../../redux/operations";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import Loader from "../Loader/Loader";
 import React from "react";
 
+import s from "./HeroesList.module.css";
+
+import { fetchMoreHeroesThunk } from "../../redux/operations";
+import { selectHeroes, selectIsLoading, selectPage } from "../../redux/slice";
+
+import HeroItem from "../HeroItem/HeroItem";
+import Loader from "../Loader/Loader";
+
 function HeroesList() {
+  // useSelectors for getting info from redux store
   const heroes = useSelector(selectHeroes);
   const page = useSelector(selectPage);
+  const loading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
   const containerRef = useRef(null);
-  const [shouldScroll, setShouldScroll] = useState(false);
-  const loading = useSelector(selectIsLoading);
   const { id } = useParams();
+  const [shouldScroll, setShouldScroll] = useState(false);
 
   useEffect(() => {
+    //useEffect for smooth scroll after fetching more heroes
     if (shouldScroll && !loading) {
       const scrollToBottom = () => {
         if (containerRef.current) {

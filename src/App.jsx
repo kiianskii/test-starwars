@@ -11,6 +11,7 @@ import Loader from "./components/Loader/Loader";
 function App() {
   const dispatch = useDispatch();
 
+  // useEffect needed to fetch heroes for main page, and also to preload info about films
   useEffect(() => {
     dispatch(fetchHeroesThunk());
     dispatch(fetchFilmsThunk());

@@ -7,7 +7,6 @@ import { selectHeroes, selectIsLoading, selectPage } from "../../redux/slice";
 import HeroItem from "../HeroItem/HeroItem";
 import rootReducer from "../../redux/rootReducer";
 
-// Моки
 jest.mock("../../redux/slice", () => ({
   selectHeroes: jest.fn(),
   selectIsLoading: jest.fn(),
@@ -28,40 +27,34 @@ describe("HeroesList Component", () => {
   });
 
   it("renders HeroItem components for each hero", () => {
-    // Налаштовуємо моки
     selectHeroes.mockReturnValue([
       { id: 1, name: "Hero 1" },
       { id: 2, name: "Hero 2" },
     ]);
-    selectIsLoading.mockReturnValue(false); // Не враховуємо завантаження
-    selectPage.mockReturnValue(1); // Не враховуємо сторінку
+    selectIsLoading.mockReturnValue(false);
+    selectPage.mockReturnValue(1);
 
-    // Рендеримо компонент
     render(
       <Provider store={store}>
         <HeroesList />
       </Provider>
     );
 
-    // Перевіряємо, що компоненти HeroItem рендеряться правильно
     expect(screen.getByText("HeroItem: Hero 1")).toBeInTheDocument();
     expect(screen.getByText("HeroItem: Hero 2")).toBeInTheDocument();
   });
 
   it("does not render HeroItem components if there are no heroes", () => {
-    // Налаштовуємо моки
     selectHeroes.mockReturnValue([]);
-    selectIsLoading.mockReturnValue(false); // Не враховуємо завантаження
-    selectPage.mockReturnValue(1); // Не враховуємо сторінку
+    selectIsLoading.mockReturnValue(false);
+    selectPage.mockReturnValue(1);
 
-    // Рендеримо компонент
     render(
       <Provider store={store}>
         <HeroesList />
       </Provider>
     );
 
-    // Перевіряємо, що HeroItem компоненти не рендеряться
     expect(screen.queryByText("HeroItem: Hero 1")).toBeNull();
     expect(screen.queryByText("HeroItem: Hero 2")).toBeNull();
   });

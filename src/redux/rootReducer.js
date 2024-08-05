@@ -1,8 +1,8 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import { heroesReducer } from "./slice"; // Імплементуємо ваш редуктор
+import { combineReducers } from "redux";
+import { heroesReducer } from "./slice";
 
 const rootReducer = combineReducers({
-  heroes: heroesReducer, // Ключ повинен відповідати стану в вашому slice
+  heroes: heroesReducer,
 });
 
 export default rootReducer;

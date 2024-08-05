@@ -1,95 +1,9 @@
-// import { MarkerType } from "@xyflow/react";
-
-// export const nodesMade = ({ hero, filteredFilms, starships }) => {
-//   if (!hero) return { nodes: [], edges: [] };
-
-//   const filmsNodes = filteredFilms.map((film, index) => ({
-//     id: film.id.toString(),
-//     data: {
-//       label: (
-//         <>
-//           <h4 className="pop">{film.title}</h4>
-//         </>
-//       ),
-//     },
-//     position: { x: 190 * index, y: 130 },
-//     style: {
-//       background: "#e8e7f5",
-//       color: "#333",
-//       border: "1px solid #222138",
-//       width: 170,
-//     },
-//   }));
-
-//   const starshipsNodes = starships.map((ship, index) => ({
-//     id: ship.id.toString(),
-//     data: {
-//       label: (
-//         <>
-//           <h4 className="pop">{ship.name}</h4>
-//         </>
-//       ),
-//     },
-//     position: { x: 190 * index, y: 330 },
-//     style: {
-//       background: "#D6D5E6",
-//       color: "#333",
-//       border: "1px solid #222138",
-//       width: 170,
-//     },
-//   }));
-
-//   const nodes = [
-//     {
-//       id: "1000",
-//       type: "input",
-//       data: {
-//         label: (
-//           <>
-//             <h3>{hero?.name}</h3>
-//           </>
-//         ),
-//       },
-//       position: { x: 200, y: 1 },
-//     },
-//     ...filmsNodes,
-//     ...starshipsNodes,
-//   ];
-
-//   const filmsEdges = filteredFilms.map((film) => ({
-//     id: `e1000-${film.id}`,
-//     source: "1000",
-//     target: film.id.toString(),
-//     markerEnd: {
-//       type: MarkerType.ArrowClosed,
-//     },
-//   }));
-
-//   const starshipsEdges = filteredFilms.flatMap((film) => {
-//     return starships
-//       .filter((ship) => film.starships.includes(ship.id))
-//       .map((ship) => ({
-//         id: `e${film.id}-${ship.id}`,
-//         source: film.id.toString(),
-//         target: ship.id.toString(),
-
-//         markerEnd: {
-//           type: MarkerType.ArrowClosed,
-//         },
-//       }));
-//   });
-
-//   const edges = [...filmsEdges, ...starshipsEdges];
-
-//   return { nodes, edges };
-// };
-
 import { MarkerType } from "@xyflow/react";
 
 export const nodesMade = ({ hero, filteredFilms, starships }) => {
   if (!hero) return { nodes: [], edges: [] };
 
-  // Додаємо вузли для фільмів і зорельотів
+  //Informational node about Films
   const filmsHeaderNode = {
     id: "films-header",
     data: {
@@ -99,7 +13,7 @@ export const nodesMade = ({ hero, filteredFilms, starships }) => {
         </>
       ),
     },
-    position: { x: 0, y: 130 }, // Розташування заголовка для фільмів
+    position: { x: 0, y: 130 },
     style: {
       background: "#fff",
       color: "#333",
@@ -108,6 +22,8 @@ export const nodesMade = ({ hero, filteredFilms, starships }) => {
     },
   };
 
+  //Informational node about Starships
+
   const starshipsHeaderNode =
     starships.length > 0
       ? {
@@ -115,11 +31,11 @@ export const nodesMade = ({ hero, filteredFilms, starships }) => {
           data: {
             label: (
               <>
-                <h4>Spaceships:</h4>
+                <h4>Starships:</h4>
               </>
             ),
           },
-          position: { x: 0, y: 280 }, // Розташування заголовка для зорельотів
+          position: { x: 0, y: 280 },
           style: {
             background: "#fff",
             color: "#333",
@@ -129,6 +45,7 @@ export const nodesMade = ({ hero, filteredFilms, starships }) => {
         }
       : null;
 
+  //Mapping films where appears choosed hero and returning nodes
   const filmsNodes = filteredFilms.map((film, index) => ({
     id: film.id.toString(),
     data: {
@@ -146,6 +63,8 @@ export const nodesMade = ({ hero, filteredFilms, starships }) => {
       width: 170,
     },
   }));
+
+  //Mapping starhips which used hero and returning nodes
 
   const starshipsNodes = starships.map((ship, index) => ({
     id: ship.id.toString(),
@@ -165,6 +84,7 @@ export const nodesMade = ({ hero, filteredFilms, starships }) => {
     },
   }));
 
+  //Connecting all nodes
   const nodes = [
     {
       id: "1000",
@@ -184,6 +104,7 @@ export const nodesMade = ({ hero, filteredFilms, starships }) => {
     ...starshipsNodes,
   ].filter(Boolean);
 
+  //Mapping and returning edges for films
   const filmsEdges = filteredFilms.map((film) => ({
     id: `e1000-${film.id}`,
     source: "1000",
@@ -192,6 +113,8 @@ export const nodesMade = ({ hero, filteredFilms, starships }) => {
       type: MarkerType.ArrowClosed,
     },
   }));
+
+  //Mapping and returning edges for starships
 
   const starshipsEdges = filteredFilms.flatMap((film) => {
     return starships
@@ -205,6 +128,7 @@ export const nodesMade = ({ hero, filteredFilms, starships }) => {
         },
       }));
   });
+  //Connecting all edges
 
   const edges = [...filmsEdges, ...starshipsEdges];
 

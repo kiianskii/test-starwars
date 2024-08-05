@@ -18,5 +18,5 @@ function HeroItem({ hero }) {
     </li>
   );
 }
-
+// Component for render one hero card
 export default HeroItem;

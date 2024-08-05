@@ -1,7 +1,8 @@
 import { Outlet, useParams } from "react-router-dom";
-import HeroesList from "../HeroesList/HeroesList";
 
 import s from "./Layout.module.css";
+
+import HeroesList from "../HeroesList/HeroesList";
 import Header from "../Header/Header";
 
 function Layout() {

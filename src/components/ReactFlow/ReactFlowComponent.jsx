@@ -6,18 +6,20 @@ import ReactFlow, {
   useEdgesState,
 } from "react-flow-renderer";
 
-import { nodesMade } from "./InitialElements";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+import { fetchStarships } from "../../redux/operations";
 import {
   selectFilms,
   selectHeroes,
   selectIsLoading,
   selectStarships,
 } from "../../redux/slice";
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { fetchStarships } from "../../redux/operations";
+
 import Loader from "../Loader/Loader";
+import { nodesMade } from "./InitialElements";
 
 const ReactFlowComponent = () => {
   const dispatch = useDispatch();
@@ -28,11 +30,13 @@ const ReactFlowComponent = () => {
   const films = useSelector(selectFilms);
   const { id } = useParams();
 
+  // States for controlling nodes and edges that React Flow need
   const [initialNodes, setInitialNodes] = useState([]);
   const [initialEdges, setInitialEdges] = useState([]);
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
+  //useEffect that controlles fetching Starships
   useEffect(() => {
     if (characters.length > 0 && Number(id)) {
       const hero = characters.find((hero) => hero.id === Number(id));
@@ -45,11 +49,13 @@ const ReactFlowComponent = () => {
       );
       if (hero && filteredFilms) {
         const starshipIds = hero.starships;
-        // Запуск запиту для отримання даних про starships
+
         dispatch(fetchStarships(starshipIds));
       }
     }
   }, [characters, id, films, dispatch]);
+
+  //useEffect that controlles making nodes and edges for React Flow
 
   useEffect(() => {
     if (characters.length > 0 && Number(id) && starships.length > 0) {
@@ -80,6 +86,7 @@ const ReactFlowComponent = () => {
     }
   }, [characters, id, films, starships]);
 
+  //useEffect that set nodes and edges before render React Flow component
   useEffect(() => {
     setNodes(initialNodes);
     setEdges(initialEdges);

@@ -14,5 +14,5 @@ function Header() {
     </section>
   );
 }
-
+// Starwars Characters - made as link, so user can get back to main page easily
 export default Header;
